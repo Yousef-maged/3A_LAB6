@@ -1,1 +1,28 @@
+name: test cases 
+on: push 
+jobs: 
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
 
+      - name: setup python for any version
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+          
+      - name: install from reqirment.txt   
+        run: pip install from requirment.txt 
+
+      - name: run test cases in job test.py
+        run: python -m  unittest  test.py
+  deploy:
+     needs: testing
+     runs-on: ubuntu-latest
+     steps:
+      - name: check
+        uses: actions/checkout@v4
+      - name: deploy done
+        run: echo "deploy done"
+     
